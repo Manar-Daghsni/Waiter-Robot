@@ -2,7 +2,7 @@
 > Full implementation: ROS 2 • Raspberry Pi 5 • Arduino • LIDAR • IMU • Ultrasonic Sensors • MQTT
 
 <p align="center">
-  <img src="docs/robot_photo.jpg" width="450px">
+  <img src="docs/robot_photo.jpeg" width="450px">
 </p>
 
 <p align="center">
