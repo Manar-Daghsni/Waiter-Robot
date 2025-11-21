@@ -1,0 +1,27 @@
+slam_toolbox:
+  ros__parameters:
+    use_sim_time: false
+    mode: "mapping"
+    map_frame: "map"
+    odom_frame: "odom"
+    base_frame: "base_link"
+    scan_topic: "/scan"
+    odom_topic: "/odom"
+
+    # Odometry settings
+    use_odom: true                # lidar-only until odom is reliable
+    odom_queue_size: 50            # buffer more msgs to avoid drops
+    scan_queue_size: 50
+
+    # Lidar / mapping settings
+    max_laser_range: 12.0
+    transform_publish_period: 0.05
+    map_update_interval: 1.0       # faster updates for testing
+    publish_period_sec: 0.05
+
+    # Odometry weighting (only used when use_odom: true)
+    odom_alpha: 0.2
+
+    # Logging / goals
+    use_action_for_goal: false
+
