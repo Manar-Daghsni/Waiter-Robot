@@ -76,21 +76,44 @@ The robot integrates these components:
 - Encoders → `/odom`  
 
 ### 🧩 Software Layers  
-- Arduino → Motor control + raw sensors  
-- Raspberry Pi → ROS2 Navigation Stack  
-- SLAM Toolbox → Mapping  
-- Nav2 → Autonomous navigation  
-- MQTT → Table call system  
+- **Arduino UNO**  
+  - Reads IMU  
+  - Reads ultrasonic sensors  
+  - Reads encoders  
+  - Controls motors  
+  - Sends `/odom`, `/imu`, `/ultrasonic_*` to Pi  
+
+- **Raspberry Pi 5 (ROS2 Jazzy)**  
+  - Runs LIDAR driver  
+  - Runs SLAM Toolbox for mapping  
+  - Runs Nav2 for navigation  
+  - Sends `/cmd_vel` to Arduino  
+  - Runs MQTT listener for table call
+---
+### 🧭 Sensors Overview
+
+All low-level sensors are wired to the **Arduino**, which sends processed data to the Raspberry Pi via serial:
+
+- **Ultrasonic array (4 sensors)** → distance measurement  
+- **IMU (accelerometer + gyroscope)** → orientation data  
+- **Wheel encoders** → odometry and speed  
+- **Motor driver** → BTS7960 DC motor control  
+
+Direct to Raspberry Pi:
+
+- **RPLIDAR A1** → publishes `/scan` over USB  
 
 ---
 
 ## 📡 Communication Architecture
 
 ```
-Arduino → Serial → Raspberry Pi 5
-     ↑                 ↓
-Encoders        LIDAR / Ultrasonic / IMU
-Motors          Nav2 Navigation Stack
+ ULTRASONIC (4x) → Arduino ──┐
+ IMU                → Arduino ─┼── Serial → Raspberry Pi 5 → ROS2 Topics
+ Encoders            → Arduino ─┘
+ Motors    ← Arduino (PWM)
+ 
+ LIDAR A1  → Raspberry Pi 5 (USB)
 ```
 
 MQTT:
@@ -154,11 +177,6 @@ Everything in the **docs/** folder:
 
 ---
 
-## 📝 License
-
-MIT License
-
----
 
 ## ✨ Author
 
