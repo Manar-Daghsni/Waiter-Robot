@@ -180,5 +180,5 @@ Everything in the **docs/** folder:
 
 ## ✨ Author
 
-**Daghsni Manar** — Robotics & Automation Engineer  
-Real Waiter Robot Project  
+**Daghsni Manar** — Electrical & Automation Engineer  
+Waiter Robot Project  
